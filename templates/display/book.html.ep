@@ -1,0 +1,15 @@
+% layout 'default';
+% title 'Welcome';
+<h2><%= $comic->name %> <%= $msg %></h2>
+This page was generated from the template "templates/display/book.html.ep"
+and the layout "templates/layouts/default.html.ep",
+<a href="<%== url_for %>">click here</a> to reload the page or
+<a href="/index.html">here</a> to move forward to a static page.
+
+% foreach my $strip ( $comic->strips->collection->grep(sub{$_->exists})->each ) {
+  Date: <%= $strip->date %>
+  Rel URL: <%= $strip->rel_url %>
+  Abs Path: <%= $strip->abs_path %>
+  Size: <%= $strip->size %>
+  Mtime: <%= scalar localtime($strip->mtime) %>
+% }
