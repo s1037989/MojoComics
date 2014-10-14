@@ -1,6 +1,8 @@
 package Comics;
 use Mojo::Base -base;
 
+our $VERSION = '0.01';
+
 use overload '""' => sub { shift->_collection }, fallback=>1;
 
 use Mojo::Util 'decamelize';
