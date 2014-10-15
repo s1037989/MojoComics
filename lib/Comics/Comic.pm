@@ -20,10 +20,9 @@ has _types => sub { Mojolicious::Types->new };
 sub _download {
   my ($self, $strip, $dom) = @_;
 
-  my $tx = $self->_ua->get($self->_ua->get($self->_resolved_link($strip->date))->res->dom->$dom->first);
-  $strip->ext($self->_types->detect($tx->res->headers->content_type)->[0]);
-  #warn sprintf "%s -> %s\n", $tx->res->headers->content_type, $strip->ext;
-  $tx->res->content->asset->move_to($strip->abs_path);
+  #my $tx = $self->_ua->get($self->_ua->get($self->_resolved_link($strip->date))->res->dom->$dom->first);
+  #$strip->ext($self->_types->detect($tx->res->headers->content_type)->[0]);
+  #$tx->res->content->asset->move_to($strip->abs_path);
   $strip->exists;
 }
 

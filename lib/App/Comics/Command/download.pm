@@ -35,9 +35,9 @@ sub run {
   foreach my $comic ( $comics->each ) {
     say sprintf "Comic: %s", $comic->name;
     foreach my $strip ( $comic->strips->collection->grep(sub{!$_->exists})->each ) {
-      say sprintf "Date: %s", $strip->date;
-      say sprintf "Abs Path: %s", $strip->abs_path;
-      say sprintf "Download: %s", $strip->comic->download($strip);
+      say sprintf "  Date: %s", $strip->date;
+      say sprintf "    Abs Path: %s", $strip->abs_path;
+      say sprintf "    Download: %s", $strip->download;
     }
  }
 

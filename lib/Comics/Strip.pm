@@ -28,10 +28,11 @@ sub rebase {
   $self;
 }
 
-sub url {
+sub download {
   my $self = shift;
-  #$self->date->format($self->link);
+  $self->comic->download($self);
 }
+
 sub filename {
   my $self = shift;
   join '.', $self->comic->filename, shift || $self->ext;
@@ -47,7 +48,7 @@ sub abs_path {
   return catfile $self->_abs_dir, $filename;
 }
 
-sub exists { -e shift->abs_path }
+sub exists { -e shift->abs_path ? 1 : 0 }
 sub size { -s shift->abs_path }
 sub mtime { (stat(shift->abs_path))[9] || 0 }
 
