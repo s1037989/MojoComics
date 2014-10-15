@@ -7,11 +7,10 @@ use File::Spec::Functions qw( catdir catfile );
 
 has 'comic';
 has 'date';
-has name => sub { decamelize(shift->comic->name) };
+has 'ext' => 'png';
 
 has '_rel_dir';
 has '_abs_dir';
-has '_ext' => 'png';
 
 sub new { shift->SUPER::new(@_)->rebase }
 
@@ -21,9 +20,9 @@ sub rebase {
   $self->_abs_dir($self->comic->repo($self->_rel_dir));
   mkdir $self->_abs_dir unless -d $self->_abs_dir;
   if ( !$self->exists ) {
-    if ( my $file = (glob(catdir $self->_abs_dir, $self->name.'*'))[0] ) {
+    if ( my $file = (glob(catdir $self->_abs_dir, $self->comic->filename.'*'))[0] ) {
       $file =~ /\.([^\.]+)$/;
-      $self->_ext($1);
+      $self->ext($1);
     }
   }
   $self;
@@ -35,7 +34,7 @@ sub url {
 }
 sub filename {
   my $self = shift;
-  join '.', $self->name, shift || $self->_ext;
+  join '.', $self->comic->filename, shift || $self->ext;
 }
 sub rel_url {
   my $self = shift;

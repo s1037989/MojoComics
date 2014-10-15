@@ -10,12 +10,15 @@ use Mojo::Loader;
 
 use List::AllUtils 'uniq';
 
+use Comics::Core;
+
 has namespace => join '::', __PACKAGE__, 'Comic';
 has order => sub { [] };
 has 'name';
 has 'dates' => sub { [] };
 
 has _collection => sub { Comics::Collection->new };
+has _core => sub { Comics::Core->new };
 
 sub new { shift->SUPER::new(@_)->recollect }
 
@@ -24,7 +27,7 @@ sub recollect {
   $self->_collection(Comics::Collection->new);
   my $l = Mojo::Loader->new;
   #foreach ( uniq grep { not exists $self->_loaded->{$_} } grep { $self->name ? $_ eq $self->name : $_ } (map { join '::', $self->namespace, $_ } $self->order), sort @{$l->search($self->namespace)} ) {
-  foreach my $module ( sort @{$l->search($self->namespace)} ) {
+  foreach my $module ( sort grep { $self->_core->basepackagename($_) eq lc($self->_core->basepackagename($_)) } @{$l->search($self->namespace)} ) {
     $l->load($module) and next;
     push @{$self->_collection}, $module->new(dates => $self->dates) unless $self->_collection->grep(sub{ref $_ eq $module});
   }

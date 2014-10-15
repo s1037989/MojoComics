@@ -17,4 +17,9 @@ sub repo {
   $self->home->rel_dir(catdir grep {$_} $self->img_root, @_);
 }
 
+sub basepackagename {
+  my ($self, $class) = @_;
+  (reverse split /::/, $class || ref $self)[0];
+}
+
 1;
