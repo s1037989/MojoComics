@@ -19,6 +19,7 @@ sub rebase {
   my $self = shift;
   $self->_rel_dir(catdir $self->comic->base_url, $self->date);
   $self->_abs_dir($self->comic->repo($self->_rel_dir));
+  mkdir $self->_abs_dir unless -d $self->_abs_dir;
   if ( !$self->exists ) {
     if ( my $file = (glob(catdir $self->_abs_dir, $self->name.'*'))[0] ) {
       $file =~ /\.([^\.]+)$/;
