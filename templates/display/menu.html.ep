@@ -1,0 +1,15 @@
+%# Unless $date <= first
+
+%# Return first only if directory exists
+<a href="<%#= $date->first %>">First</a>
+%# Return the next previous date where the date directory exists
+<a href="<%#= $date->prev %>">Previous</a>
+
+%# Return a random date where the date directory exists
+<a href="<%#= $date->random %>">Random</a>
+
+%# Unless $date >= today
+%# Return the next date where the date directory exists
+<a href="<%#= $date->next %>">Next</a>
+%# Return today only if directory exists
+<a href="<%#= $date->today %>">Today</a>
