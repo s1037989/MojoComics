@@ -20,7 +20,7 @@ sub rebase {
   $self->_abs_dir($self->comic->repo($self->_rel_dir));
   mkdir $self->_abs_dir unless -d $self->_abs_dir;
   if ( !$self->exists ) {
-    if ( my $file = (glob(catdir $self->_abs_dir, $self->comic->filename.'*'))[0] ) {
+    if ( my $file = (glob(catdir $self->_abs_dir, $self->comic->class.'*'))[0] ) {
       $file =~ /\.([^\.]+)$/;
       $self->ext($1);
     }
@@ -35,7 +35,7 @@ sub download {
 
 sub filename {
   my $self = shift;
-  join '.', $self->comic->filename, shift || $self->ext;
+  join '.', $self->comic->class, shift || $self->ext;
 }
 sub rel_url {
   my $self = shift;

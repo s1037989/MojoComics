@@ -37,15 +37,15 @@ sub recollect {
 sub collection { shift->_collection }
 sub c { shift->collection }
 
-sub comic { $_[0]->collection->grepname($_[1] || $_[0]->name)->first }
+sub comic { $_[0]->collection->grepcomic($_[1] || $_[0]->class)->first }
 
 package Comics::Collection;
 use Mojo::Base 'Mojo::Collection';
 
-sub grepname {
+sub grepcomic {
   my ($self, $grep) = @_;
   
-  ref $grep eq 'Regexp' ? $self->grep(sub { $_->name =~ $grep }) : $self->grep(sub { lc($_->name) eq lc($grep) });
+  ref $grep eq 'Regexp' ? $self->grep(sub { $_->class =~ $grep || $_->name =~ $grep }) : $self->grep(sub { lc($_->class) eq lc($grep) || lc($_->name) eq lc($grep) });
 }
 
 1;

@@ -9,6 +9,7 @@ use File::Spec::Functions 'catdir';
 has 'dates';
 has base_url => '/comics/';
 has img_root => 'public';
+has class => sub { shift->basepackagename };
 has home => sub { Mojo::Home->new->detect(ref shift) };
 has storage => sub { Mojo::Storage->new };
 

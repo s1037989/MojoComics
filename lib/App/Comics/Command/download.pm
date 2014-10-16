@@ -26,14 +26,14 @@ sub run {
   my ($self, @args) = @_;
 
   GetOptionsFromArray \@args,
-    'c|comic=s' => \(my $name = ''),
+    'c|comic=s' => \(my $comic = ''),
     'd|date=i'  => \my @dates;
 
   $self->app->comics->dates([(sort @dates)[0,-1]])->recollect;
-  my $comics = $name ? $self->app->comics->collection->grepname($name) : $self->app->comics->collection;
+  my $comics = $comic ? $self->app->comics->collection->grepcomic($comic) : $self->app->comics->collection;
 
   foreach my $comic ( $comics->each ) {
-    say sprintf "Comic: %s", $comic->name;
+    say sprintf "Comic: %s (%s)", $comic->name, $comic->class;
     foreach my $strip ( $comic->strips->collection->grep(sub{!$_->exists})->each ) {
       say sprintf "  Date: %s", $strip->date;
       say sprintf "    Abs Path: %s", $strip->abs_path;

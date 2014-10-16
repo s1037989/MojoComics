@@ -9,7 +9,6 @@ use Date::Simple::D8;
 use Comics::Strips;
 
 has name => 'Sample';
-has filename => sub { shift->basepackagename };
 has link => 'http://samp.le';
 has days => sub { [] };
 has strips => sub { Comics::Strips->new(comic => shift) };
