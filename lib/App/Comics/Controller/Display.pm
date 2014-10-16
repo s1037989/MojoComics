@@ -9,7 +9,7 @@ sub daily {
 
   $self->comics->dates([$self->_d8('date')])->recollect;
 
-  $self->render(msg => 'Daily', comics => $self->comics);
+  $self->render(type => 'Daily', comics => $self->comics, date => $self->_d8('date'));
 }
 
 # This action will render a template
@@ -18,7 +18,7 @@ sub book {
 
   $self->comics->name($self->param('name'))->dates([$self->_d8('from'), $self->_d8('to')])->recollect;
 
-  $self->render(msg => 'Book', comic => $self->comics->comic);
+  $self->render(type => 'Book', comic => $self->comics->comic);
 }
 
 sub _d8 {

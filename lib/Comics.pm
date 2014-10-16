@@ -38,7 +38,7 @@ sub recollect {
 sub collection { shift->_collection }
 sub c { shift->collection }
 
-sub comic { $_[0]->collection->grepcomic($_[1] || $_[0]->class)->first }
+sub comic { $_[0]->collection->grepcomic($_[1] || $_[0]->name || (reverse split /::/, ref $_[0])[0])->first }
 
 package Comics::Collection;
 use Mojo::Base 'Mojo::Collection';

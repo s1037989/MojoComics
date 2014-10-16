@@ -46,6 +46,8 @@ sub run {
   return 1;
 }
 
+sub exist { shift->collection->grep(sub{$_->exists})->size }
+
 package Comics::Strips::Collection;
 use Mojo::Base 'Mojo::Collection';
 
