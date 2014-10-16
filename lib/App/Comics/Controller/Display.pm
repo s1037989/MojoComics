@@ -1,29 +1,24 @@
 package App::Comics::Controller::Display;
-use Mojo::Base 'Mojolicious::Controller';
+use Mojo::Base 'App::Comics::Controller';
 
-has comics => sub { shift->app->comics };
+has library => sub { shift->app->library };
 
 # This action will render a template
 sub daily {
   my $self = shift;
 
-  $self->comics->dates([$self->_d8('date')])->recollect;
+  $self->library->dates([$self->d8('date')])->recollect;
 
-  $self->render(msg => 'Daily', comics => $self->comics);
+  $self->render(msg => 'Daily');
 }
 
 # This action will render a template
 sub book {
   my $self = shift;
 
-  $self->comics->name($self->param('name'))->dates([$self->_d8('from'), $self->_d8('to')])->recollect;
+  $self->library->comic($self->param('comic'))->dates([$self->d8('from'), $self->d8('to')])->recollect;
 
-  $self->render(msg => 'Book', comic => $self->comics->comic);
-}
-
-sub _d8 {
-  my ($self, $param) = @_;
-  $self->datesimple->d8($self->param($param))
+  $self->render(msg => 'Book');
 }
 
 1;

@@ -6,7 +6,6 @@ use Mojo::Storage;
 
 use File::Spec::Functions 'catdir';
 
-has 'dates';
 has base_url => '/comics/';
 has img_root => 'public';
 has class => sub { shift->basepackagename };
