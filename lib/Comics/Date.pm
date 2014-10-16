@@ -20,8 +20,9 @@ sub new { shift->SUPER::new(@_)->recollect }
 sub recollect {
   my $self = shift;
   ref $self->dates eq 'ARRAY' or return undef;
+  $self->dates->[0] ||= $self->today;
   $self->dates->[1] ||= $self->dates->[0];
-  my @dates = sort { $a <=> $b } map { $_ ? Date::Simple::D8->new($_) : Date::Simple::D8->new } @{$self->dates}[0,1];
+  my @dates = sort { $a <=> $b } map { ref $_ eq 'Date::Simple::D8' ? $_ : Date::Simple::D8->new($_) } @{$self->dates}[0,1];
   $_->default_format($self->format) foreach @dates;
   $self->start($dates[0])->end($dates[1]);
   my $start = $self->start;

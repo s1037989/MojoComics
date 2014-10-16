@@ -25,7 +25,26 @@ sub recollect {
 sub collection { shift->_collection }
 sub c { shift->_collection }
 
-sub strip { shift->collection->grepdate(shift)->first }
+sub strip {
+  my ($self, $date) = @_;
+  $self->collection->grepdate($date)->first || Comics::Strip->new(comic => $self->comic, date => $date);
+}
+
+sub previous {
+  my ($self, $date) = @_;
+  Comics::Date->new(dates => [$self->date->first, $date-1])->collection->reverse->map(sub {
+    my $strip = Comics::Strip->new(comic => $self->comic, date => $_);
+    $strip->exists ? $strip : undef;
+  })->compact->first || $self->strip($date);
+}
+
+sub run {
+  my ($self, $date) = @_;
+  if ( @{$self->comic->days} ) {
+    return 0 unless grep { ($self->collection->grepdate($date || $self->date->start)->map(sub{$_->date->format('%a')})->first || '') eq $_ } @{$self->comic->days};
+  }
+  return 1;
+}
 
 package Comics::Strips::Collection;
 use Mojo::Base 'Mojo::Collection';

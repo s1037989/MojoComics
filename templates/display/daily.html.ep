@@ -6,7 +6,7 @@ and the layout "templates/layouts/default.html.ep",
 <a href="<%== url_for %>">click here</a> to reload the page or
 <a href="/index.html">here</a> to move forward to a static page.
 
-% foreach my $comic ( $comics->collection->each ) {
+% foreach my $comic ( $comics->collection->grep(sub {$_->strips->run})->each ) {
   Comic: <%= $comic->name %>
   % foreach my $strip ( $comic->strips->collection->grep(sub{$_->exists})->each ) {
     Date: <%= $strip->date %>

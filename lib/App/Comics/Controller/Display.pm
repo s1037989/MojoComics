@@ -7,7 +7,7 @@ has comics => sub { shift->app->comics };
 sub daily {
   my $self = shift;
 
-  $self->comics->dates([$self->param('date')])->recollect;
+  $self->comics->dates([$self->_d8('date')])->recollect;
 
   $self->render(msg => 'Daily', comics => $self->comics);
 }
@@ -16,9 +16,14 @@ sub daily {
 sub book {
   my $self = shift;
 
-  $self->comics->name($self->param('name'))->dates([$self->param('from'), $self->param('to')])->recollect;
+  $self->comics->name($self->param('name'))->dates([$self->_d8('from'), $self->_d8('to')])->recollect;
 
   $self->render(msg => 'Book', comic => $self->comics->comic);
+}
+
+sub _d8 {
+  my ($self, $param) = @_;
+  $self->datesimple->d8($self->param($param))
 }
 
 1;

@@ -11,6 +11,8 @@ has comics => sub { Comics->new };
 sub startup {
   my $self = shift;
 
+  $self->plugin('DateSimple' => {FMT => 'D8'});
+
   # Add app commands
   $self->add_commands;
 

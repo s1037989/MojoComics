@@ -51,5 +51,6 @@ sub abs_path {
 sub exists { -e shift->abs_path ? 1 : 0 }
 sub size { -s shift->abs_path }
 sub mtime { (stat(shift->abs_path))[9] || 0 }
+sub md5_sum { Mojo::Util::md5_sum shift->abs_path }
 
 1;
