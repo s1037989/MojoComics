@@ -8,8 +8,9 @@ use Date::Simple::D8;
 
 use Comics::Strips;
 
-has name => 'Sample';
-has link => 'http://samp.le';
+has name => sub { warn 'Not implemented' };
+has names => sub { [] };
+has link => sub { warn 'Not implemented' };
 has days => sub { [] };
 has dom => sub { shift };
 has min_size => 5000;

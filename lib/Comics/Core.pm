@@ -2,7 +2,7 @@ package Comics::Core;
 use Mojo::Base -base;
 
 use Mojo::Home;
-use Mojo::Storage;
+#use Mojo::Storage;
 
 use File::Spec::Functions 'catdir';
 
@@ -11,7 +11,7 @@ has base_url => '/comics/';
 has img_root => 'public';
 has class => sub { shift->basepackagename };
 has home => sub { Mojo::Home->new->detect(ref shift) };
-has storage => sub { Mojo::Storage->new };
+#has storage => sub { Mojo::Storage->new };
 
 sub repo {
   my $self = shift;

@@ -6,8 +6,8 @@ use warnings;
 use FindBin;
 BEGIN { unshift @INC, "$FindBin::Bin/../lib" }
 
-use lib '/home/stefan/Dropbox/Projects/mojo-storage/lib';
-use lib '/home/stefan/Dropbox/Projects/Mojolicious-Plugin-DateSimple/lib';
+use lib '/data/web/mojo/mojo-storage/lib';
+use lib '/data/web/mojo/Mojolicious-Plugin-DateSimple/lib';
 
 # Start command line interface for application
 require Mojolicious::Commands;
