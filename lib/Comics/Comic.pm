@@ -34,7 +34,6 @@ has types => sub { Mojolicious::Types->new };
 sub download {
   my ($self, $strip) = @_;
   return 0 unless $self->strips->run($strip->date);
-  warn sprintf "Getting %s\n", $self->datedlink($strip->date);
   my $dom = $strip->comic->dom;
   my $img = $self->ua->get($self->datedlink($strip->date) => $self->headers)->res->dom->$dom->first;
   $img = $self->link.$img if $img =~ /^\//;
