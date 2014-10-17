@@ -46,7 +46,8 @@ sub save {
   if ( $tx ) {
     $strip->ext($self->types->detect($tx->res->headers->content_type)->[0]);
     my $asset = $tx->res->content->asset;
-    return $asset->move_to($strip->abs_path) if $asset->size > $self->min_size && $self->_md5_sum($asset->path) ne $self->_md5_sum($self->strips->previous($strip->date)->abs_path);
+    my $asset_md5 = Mojo::Util::md5_sum $asset->get_chunk(0, $asset->size);
+    return $asset->move_to($strip->abs_path) if $asset->size > $self->min_size && $asset_md5 ne $self->_md5_sum($self->strips->previous($strip->date)->abs_path);
   } else {
     warn "No \$tx found\n";
   }
