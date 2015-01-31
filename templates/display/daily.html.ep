@@ -1,5 +1,7 @@
 % layout 'default';
-% title "$type Comics for ".$date->format('%a');
+% title $date->format('%a')." Comics";
+
+<%= $date->format('%a') %> Comics<br />
 
 %= include 'display/menu'
 <center>

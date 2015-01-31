@@ -23,7 +23,7 @@ sub book {
 
 sub _d8 {
   my ($self, $param) = @_;
-  $self->datesimple->d8($self->param($param))
+  $self->param($param) ? $self->datesimple->d8($self->param($param)) : $self->datesimple->d8;
 }
 
 1;

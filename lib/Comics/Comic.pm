@@ -35,7 +35,7 @@ sub download {
   my ($self, $strip) = @_;
   return 0 unless $self->strips->run($strip->date);
   my $dom = $strip->comic->dom;
-  my $img = $self->ua->get($self->datedlink($strip->date) => $self->headers)->res->dom->$dom->first;
+  my $img = $self->ua->get($self->datedlink($strip->date) => $self->headers)->res->dom->$dom;
   $img = $self->link.$img if $img =~ /^\//;
   my $tx = $self->ua->get($img => $self->headers);
   $self->save($strip, $tx);
