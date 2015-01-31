@@ -17,7 +17,7 @@ sub recollect {
   my $self = shift;
   $self->_collection(Comics::Strips::Collection->new);
   foreach my $date ( $self->date->collection->each ) {
-    push @{$self->_collection}, Comics::Strip->new(comic => $self->comic, date => $date) unless $self->_collection->grep(sub{$_ eq $date});
+    push @{$self->_collection}, Comics::Strip->new(comic => $self->comic, date => $date) unless $self->_collection->grep(sub{$_ eq $date})->size;
   }
   $self;
 }

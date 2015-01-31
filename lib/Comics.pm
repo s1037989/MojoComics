@@ -29,8 +29,8 @@ sub recollect {
   #foreach ( uniq grep { not exists $self->_loaded->{$_} } grep { $self->name ? $_ eq $self->name : $_ } (map { join '::', $self->namespace, $_ } $self->order), sort @{$l->search($self->namespace)} ) {
   foreach my $module ( sort grep { $self->_core->basepackagename($_) eq lc($self->_core->basepackagename($_)) } @{$l->search($self->namespace)} ) {
     $l->load($module) and next;
-    my $comic = $module->new(dates => $self->dates) unless $self->_collection->grep(sub{ref $_ eq $module});
-    push @{$self->_collection}, $comic;
+    my $comic = $module->new(dates => $self->dates) unless $self->_collection->grep(sub{ref $_ eq $module})->size;
+    $comic and push @{$self->_collection}, $comic;
   }
   $self;
 }
